@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,100&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="estilos.css">
+    
+
+    <title>Formulario</title>
+</head>
+<body>
+    
+    <div class="wrap">
+        <div class="politica">
+            <h3>Verificación de lógica de negocio</h3><br>
+            <p>Para poder realizar el envio correcto de este formulario debe tener en cuenta ciertos parametros: </p>
+            <br>
+            <ul class="b">
+                <li>El nombre es obligatorio.</li><br>
+                <li>La contraseña es obligatoria.</li><br>
+                <li>El correo es obligatorio, tambien se verificara su estrcutura correcta(@).</li><br>
+                <li>El apartado de seleccionar su sexo es obligatorio.</li><br>
+                <li>El textarea es obligatorio, se tendra en cuenta el numero de caracteres y los valores introduciones.</li><br>
+                <li>Los demas apartados son opcionales y puede o no relleñarlos.</li>
+            </ul>
+        </div>
+    
+        <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
+            <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre: " value="<?php if(!$enviado && isset($nombre)) echo $nombre ?>">
+
+            <input type="password" class="form-control" id="password" name="password" placeholder="Password: " value="<?php if(!$enviado && isset($password)) echo $password ?>">
+
+           
+            <input type="hidden" id="prueba" name="prueba" value="prueba123">
+          
+            
+            <input type="text" class="form-control" id="correo" name="correo" placeholder="Correo: " value="<?php if(!$enviado && isset($correo)) echo $correo ?>">
+
+            <div class="contenedor" >
+                <p>Seleccione su sexo: </p><br>
+                <p><input type="radio"  class="form-contrl" id="hombre" name="sexo" value="hombre"> Hombre</p>
+                
+                <p><input type="radio"  class="form-contrl" id="mujer" name="sexo" value="mujer"> Mujer</p>
+
+                <input type="reset" value="Borrar"><p><br><br></p>
+
+            </div>
+            
+            <div class="contenedor">
+                <div class="idiomas" id="idiomas">
+                    <p>Seleccione los idiomas que domina: </p><br>
+                    <p><input type="checkbox" class="form-contrl" id="espanol" name="idioma" value="espanol"> Español</p>
+                    <p><input type="checkbox" class="form-contrl" id="ingles" name="idioma" value="ingles"> Ingles</p>
+                    <p><input type="checkbox" class="form-contrl" id="frances"name="idioma" value="frances"> Frances</p>
+
+                    <input type="button" id="BtnSeleccionar" value="Seleccionar todo"><p><br><br></p>
+                </div>
+                
+            </div>
+            
+            <div class="contenedor">
+                <p>¿A nacido usted entre estos años?</p><br>
+                <select name="year" id="year">
+                    <option value="2000">2000</option>
+                    <option value="2001">2001</option>
+                    <option value="2002">2002</option>
+                    <option value="2003">2002</option>
+                    <option value="2004">2002</option>
+                </select>
+            </div>
+
+            <div class="contenedor">
+                <p>Estudios que ah terminado:</p><br>
+                <select multiple="multiple" id="estudios" name="estudios" size="5">
+                    <option value="eso">Secundaria</option>
+                    <option value="bach">Bachillerato</option>
+                    <option value="medio">GradoMedio</option>
+                    <option value="superior">GradoSuperior</option>
+                </select>
+                <br>
+                <input type='button' id='selectall' value="Seleccionar">
+                <input type='button' id='deselectall' value="Deseleccionar"><p><br><br></p>
+
+            </div>
+
+            <div class="contenedor">
+                <input type='file' name="file" id="file" /> <input type="hidden" name="enviado" value="1" />
+                <p><br><br></p>
+            </div>
+
+            <textarea name="mensaje" class="form-contrl" id="mensaje" placeholder="Mensaje: "><?php if(!$enviado && isset($mensaje)) echo $mensaje ?></textarea>
+
+            <?php if (!empty($errores)): ?>
+                <div class="alert error">
+                    <?php echo $errores;  ?>
+                </div>
+            <?php elseif ($enviado): ?>
+                <div class="alert success">
+                    <p>Enviado Correctamente</p>
+                </div>
+            <?php endif ?>
+            
+            <input type="reset" name="reset" class="btn btn-primary" value="Resetear Datos">
+            
+            <input type="submit" name="submit" class="btn btn-primary" value="Enviar Datos">
+
+        </form>
+    </div>
+</body>
+</html>
+<script src="funciones.js"></script>
